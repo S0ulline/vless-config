@@ -4,425 +4,393 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Настройка VPN доступа</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            --bg-color: #0f172a;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-highlight: rgba(255, 255, 255, 0.15);
-            --accent-primary: #6366f1; /* Indigo */
-            --accent-secondary: #ec4899; /* Pink */
-            --accent-glow: #8b5cf6; /* Violet */
+            /* Palette: Modern Deep Dark */
+            --bg-body: #09090b;
+            --bg-card: #18181b;
+            --bg-card-hover: #27272a;
+            --primary: #3b82f6; /* Blue */
+            --primary-glow: rgba(59, 130, 246, 0.4);
+            --accent: #8b5cf6; /* Purple */
             --text-main: #ffffff;
-            --text-muted: #94a3b8;
+            --text-muted: #a1a1aa;
+            --border: #27272a;
+            
+            --radius: 16px;
+            --container: 600px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            font-family: 'Outfit', sans-serif;
-            background-color: var(--bg-color);
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--bg-body);
             color: var(--text-main);
-            overflow-x: hidden;
+            line-height: 1.5;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, transparent 40%);
         }
 
-        /* --- Animated Background --- */
-        .background-fx {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.4;
-            animation: float 20s infinite alternate ease-in-out;
-        }
-        .orb-1 { width: 400px; height: 400px; background: var(--accent-primary); top: -100px; left: -100px; }
-        .orb-2 { width: 500px; height: 500px; background: var(--accent-secondary); bottom: -100px; right: -100px; animation-delay: -5s; }
-        .orb-3 { width: 300px; height: 300px; background: var(--accent-glow); top: 40%; left: 30%; opacity: 0.2; animation-duration: 30s; }
-
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(30px, 50px) scale(1.1); }
-        }
-
-        /* --- Layout --- */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 60px 20px 100px;
-            position: relative;
-            z-index: 1;
+        /* --- Container --- */
+        .wrapper {
+            width: 100%;
+            max-width: var(--container);
+            padding: 40px 20px 80px;
         }
 
         /* --- Header --- */
         header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
         }
 
         h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff, #a5b4fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .subtitle {
-            font-size: 1.2rem;
+        .subtitle { color: var(--text-muted); font-size: 1rem; }
+
+        /* --- Tabs Navigation --- */
+        .tabs {
+            display: flex;
+            background: var(--bg-card);
+            padding: 5px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: transparent;
+            border: none;
             color: var(--text-muted);
-            font-weight: 300;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-size: 0.95rem;
         }
 
-        /* --- Alert Box (Glass) --- */
-        .alert-box {
-            background: rgba(99, 102, 241, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 60px;
-            box-shadow: 0 0 30px rgba(99, 102, 241, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        .alert-box::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 4px; height: 100%;
-            background: var(--accent-primary);
+        .tab-btn.active {
+            background: var(--bg-card-hover);
+            color: var(--text-main);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
-        /* --- Timeline Structure --- */
-        .timeline {
-            position: relative;
-            padding-left: 40px;
-        }
-        
-        /* Line */
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 20px; bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--accent-primary), var(--accent-secondary), transparent);
-            opacity: 0.5;
+        /* --- Content Sections --- */
+        .tab-content { display: none; animation: fadeUp 0.4s ease; }
+        .tab-content.active { display: block; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- Cards (Glassmorphism) --- */
-        .card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            border-top: 1px solid var(--glass-highlight);
-            border-radius: 24px;
-            padding: 30px;
-            margin-bottom: 50px;
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
-            position: relative;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 25px 50px -10px rgba(0,0,0,0.6);
-            border-color: rgba(255,255,255,0.2);
-        }
-
-        /* Timeline Dot */
-        .card::before {
-            content: '';
-            position: absolute;
-            left: -46px; /* Adjust based on padding */
-            top: 35px;
-            width: 14px;
-            height: 14px;
-            background: var(--bg-color);
-            border: 2px solid var(--accent-primary);
-            border-radius: 50%;
-            box-shadow: 0 0 15px var(--accent-primary);
-            z-index: 2;
+        /* --- Cards & Steps --- */
+        .step-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 20px;
         }
 
         .step-header {
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .step-num {
-            font-size: 3rem;
-            font-weight: 800;
-            color: rgba(255,255,255,0.05);
-            line-height: 1;
-            position: absolute;
-            right: 20px;
-            top: 10px;
-            pointer-events: none;
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            color: #fff;
-        }
-
-        p {
-            color: var(--text-muted);
-            margin-bottom: 15px;
-            line-height: 1.7;
-        }
-
-        /* --- Download Grid --- */
-        .download-grid {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-            justify-content: center; /* Center the download buttons */
-        }
-        
-        .dl-btn {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            transition: 0.2s;
+            width: 32px; height: 32px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex: 1;
-            min-width: 120px;
-            max-width: 180px; /* Added max-width for better center look */
-        }
-        .dl-btn:hover {
-            background: rgba(255,255,255,0.1);
-            border-color: var(--accent-primary);
-        }
-        .dl-btn img {
-            max-width: 100%;
-            height: auto;
-            display: block;
+            font-weight: 800;
+            font-size: 0.9rem;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 0 15px var(--primary-glow);
         }
 
-        /* --- Screenshots --- */
-        .screen-wrapper {
-            margin: 20px auto; /* Auto margins center block elements */
+        h2 { font-size: 1.1rem; font-weight: 700; color: white; }
+        p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 15px; }
+        ul { padding-left: 20px; color: var(--text-muted); margin-bottom: 15px; font-size: 0.95rem; }
+        li { margin-bottom: 5px; }
+
+        /* --- Buttons --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+            margin-top: 10px;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 20px var(--primary-glow);
+        }
+        .btn-primary:hover { background: #2563eb; transform: translateY(-2px); }
+
+        .btn-outline {
+            background: rgba(255,255,255,0.05);
+            color: white;
+            border-color: var(--border);
+        }
+        .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: var(--text-muted); }
+
+        .btn-deep-link {
+            background: linear-gradient(90deg, #10b981, #059669);
+            color: white;
+            display: none; /* Hidden by default */
+            margin-bottom: 15px;
+        }
+
+        /* --- Images --- */
+        .img-box {
             border-radius: 12px;
             overflow: hidden;
-            border: 1px solid var(--glass-border);
-            position: relative;
-            max-width: 300px;
+            border: 1px solid var(--border);
+            margin: 15px 0;
+            background: black;
         }
-        .screen-wrapper img {
+        .img-box img {
             width: 100%;
+            height: auto;
             display: block;
-            transition: transform 0.5s ease;
+            transition: transform 0.3s;
         }
-        .screen-wrapper:hover img {
-            transform: scale(1.03);
-        }
-
-        /* --- Elements --- */
-        code {
-            background: rgba(0,0,0,0.3);
-            color: var(--accent-secondary);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: monospace;
-            font-size: 0.9em;
-        }
-
+        
         .note {
-            background: rgba(236, 72, 153, 0.1);
-            border-left: 3px solid var(--accent-secondary);
-            padding: 15px;
+            background: rgba(245, 158, 11, 0.1);
+            color: #fbbf24;
+            padding: 12px;
             border-radius: 8px;
-            font-size: 0.9rem;
-            color: #ffcae5;
+            font-size: 0.85rem;
+            margin-top: 10px;
         }
-
-        a { color: var(--accent-primary); text-decoration: none; transition: 0.2s; }
-        a:hover { color: #fff; text-shadow: 0 0 10px var(--accent-primary); }
 
         /* --- Footer --- */
         footer {
-            text-align: center;
-            padding-top: 40px;
-            border-top: 1px solid var(--glass-border);
-            margin-top: 40px;
+            margin-top: auto;
             color: var(--text-muted);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
+            opacity: 0.6;
+            text-align: center;
+            padding-bottom: 20px;
         }
 
-        /* --- Mobile --- */
-        @media (max-width: 600px) {
-            .container { padding: 40px 15px; }
-            h1 { font-size: 2.2rem; }
-            .timeline { padding-left: 20px; }
-            .timeline::before { left: 0; }
-            .card::before { left: -28px; }
-            .card { padding: 20px; }
-            .step-num { font-size: 2rem; }
-        }
-
-        /* Animation class for JS */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+        /* Responsive Tweaks */
+        @media (max-width: 480px) {
+            h1 { font-size: 2rem; }
+            .wrapper { padding: 30px 15px; }
+            .step-card { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="background-fx">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-    </div>
-
-    <div class="container">
+    <div class="wrapper">
         <header>
-            <h1>Setup Guide</h1>
-            <p class="subtitle">Инструкция по подключению VLESS</p>
+            <h1>Setup VLESS</h1>
+            <p class="subtitle">Инструкция для подключения</p>
         </header>
 
-        <div class="alert-box">
-            <h3 style="color: #fff; margin-bottom: 5px;">⚠️ Подготовка</h3>
-            <p style="margin: 0; color: #ddd;">Перед началом убедитесь, что вы скопировали <strong>ссылку на подписку</strong>, которую я отправил вам в личном сообщении.</p>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('ios')">iOS</button>
+            <button class="tab-btn" onclick="switchTab('android')">Android</button>
+            <button class="tab-btn" onclick="switchTab('windows')">PC</button>
         </div>
 
-        <div class="timeline">
+        <div id="ios" class="tab-content active">
             
-            <div class="card reveal">
-                <span class="step-num">01</span>
+            <div class="step-card">
                 <div class="step-header">
-                    <h2>Установка Happ-Proxy</h2>
+                    <div class="step-num">1</div>
+                    <h2>Установка приложения</h2>
                 </div>
-                <p>Скачайте официальное приложение для вашей платформы:</p>
+                <p>Скачайте <strong>Happ-Proxy</strong> из AppStore.</p>
+                <a href="https://apps.apple.com/app/id6746188973" class="btn btn-outline">
+                    Скачать в AppStore
+                </a>
+            </div>
+
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-num">2</div>
+                    <h2>Добавление ключа</h2>
+                </div>
                 
-                <div class="download-grid">
-                    <a href="https://play.google.com/store/apps/details?id=com.happproxy" class="dl-btn">
-                        <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/download-for-android-transparent.png&fileId=107906&x=1920&y=1080&a=true&etag=07d0c4d7c8e45ca33c8a4e8a940feba4" alt="Android">
-                    </a>
-                    <a href="https://apps.apple.com/app/id6746188973" class="dl-btn">
-                        <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/download-for-iphone-transparent.png&fileId=107898&x=1920&y=1080&a=true&etag=e464537f2ebe5a7a7d1aebd46e718994" alt="iOS">
-                    </a>
-                    <a href="https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe" class="dl-btn">
-                        <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/download-for-windows-transparent.png&fileId=107915&x=1920&y=1080&a=true&etag=e6d027c8a7cbd42edbfb567ad96a7ff6" alt="Windows">
+                <div class="deep-link-container">
+                    <a href="#" class="btn btn-deep-link" id="deepLinkBtnIOS">
+                        ⚡ Добавить в один клик
                     </a>
                 </div>
-                <div style="margin-top: 15px; font-size: 0.85rem; color: var(--text-muted); opacity: 0.7; text-align: center;">
-                    Для роутеров (OpenWRT) требуется отдельная настройка.
+
+                <p id="manualTextIOS">Скопируйте ссылку, которую вам прислали. Откройте приложение — оно само предложит добавить ключ из буфера обмена.</p>
+                
+                <div class="img-box">
+                    <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/iphone-step-1.jpg&fileId=107838&x=1920&y=1080&a=true&etag=674b82d0eb1306d9cbd19d0da8a6d1b0" alt="Import">
                 </div>
             </div>
 
-            <div class="card reveal">
-                <span class="step-num">02</span>
+            <div class="step-card">
                 <div class="step-header">
-                    <h2>Импорт настроек</h2>
+                    <div class="step-num">3</div>
+                    <h2>Настройка и Запуск</h2>
                 </div>
-                <p>1. Откройте приложение Happ-Proxy.</p>
-                <p>2. Приложение автоматически обнаружит ссылку в буфере обмена (из ЛС). Нажмите <strong>"Добавить"</strong>.</p>
-                <div class="screen-wrapper">
-                    <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/iphone-step-1.jpg&fileId=107838&x=1920&y=1080&a=true&etag=674b82d0eb1306d9cbd19d0da8a6d1b0" alt="Import Step">
-                </div>
+                <p>1. Выберите конфиг <code>reality-first</code> (если не работает — <code>xhttp</code>).</p>
+                <p>2. Включите <strong>Авто-обновление</strong> в настройках (Settings -> Advanced -> Subscription).</p>
+                <p>3. Нажмите большую кнопку <strong>Start</strong>.</p>
+                <div class="note">При первом запуске нажмите "Allow", чтобы разрешить VPN.</div>
             </div>
 
-            <div class="card reveal">
-                <span class="step-num">03</span>
+        </div>
+
+        <div id="android" class="tab-content">
+            <div class="step-card">
                 <div class="step-header">
-                    <h2>Выбор конфигурации</h2>
+                    <div class="step-num">1</div>
+                    <h2>Установка</h2>
                 </div>
-                <p>Выберите сервер из списка. Мы рекомендуем начинать с <code>reality-first</code>.</p>
-                <div class="note">
-                    Если соединение нестабильно, попробуйте переключиться на <strong>xhttp-first</strong>.
-                </div>
-                <div class="screen-wrapper">
-                    <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/iphone-step-2.jpg&fileId=107871&x=1920&y=1080&a=true&etag=42eb8178a835dbbb8dc62007f2681610" alt="Select Server">
-                </div>
+                <p>Скачайте <strong>Happ-Proxy</strong> из Google Play.</p>
+                <a href="https://play.google.com/store/apps/details?id=com.happproxy" class="btn btn-outline">
+                    Скачать в Google Play
+                </a>
             </div>
 
-            <div class="card reveal">
-                <span class="step-num">04</span>
+            <div class="step-card">
                 <div class="step-header">
-                    <h2>Автообновление</h2>
+                    <div class="step-num">2</div>
+                    <h2>Импорт</h2>
                 </div>
-                <p>Критически важный шаг для длительной работы:</p>
-                <ul style="padding-left: 20px; color: var(--text-muted); margin-bottom: 15px;">
-                    <li>Зайдите в настройки (⚙️)</li>
-                    <li>Раздел <strong>Расширенные настройки</strong></li>
-                    <li>Пункт <strong>Подписки</strong></li>
-                    <li>Включите <strong>"Авто обновления"</strong></li>
-                </ul>
+
+                <div class="deep-link-container">
+                    <a href="#" class="btn btn-deep-link" id="deepLinkBtnAndroid">
+                        ⚡ Добавить в один клик
+                    </a>
+                </div>
+
+                <p id="manualTextAndroid">Если кнопки выше нет, скопируйте ключ вручную и нажмите "Import from Clipboard" в приложении.</p>
             </div>
 
-            <div class="card reveal">
-                <span class="step-num">05</span>
+             <div class="step-card">
                 <div class="step-header">
+                    <div class="step-num">3</div>
                     <h2>Подключение</h2>
                 </div>
-                <p>Нажмите кнопку <strong>Start / Подключить</strong>.</p>
-                <p>При первом запуске разрешите создание VPN-профиля (нажмите Allow/Разрешить и введите код-пароль).</p>
-                
-                <hr style="border: 0; border-top: 1px solid var(--glass-border); margin: 20px 0;">
-                
-                <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 10px;">Проверка работы</h3>
-                <p>Зайдите на <a href="https://2ip.ru" target="_blank">2ip.ru</a>. Ваш IP и страна должны измениться.</p>
+                <p>Включите <strong>Авто обновления</strong> в настройках подписки. Выберите сервер и нажмите кнопку подключения по центру.</p>
             </div>
+        </div>
 
-            <div class="card reveal" style="border-color: rgba(236, 72, 153, 0.3);">
+        <div id="windows" class="tab-content">
+            <div class="step-card">
                 <div class="step-header">
-                    <h2 style="color: var(--accent-secondary);">Возможные проблемы</h2>
+                    <div class="step-num">1</div>
+                    <h2>Скачивание</h2>
                 </div>
-                <p><strong>Список пустой или не работает?</strong><br>
-                Нажмите кнопку 🔄 (Обновить) на главном экране.</p>
-                 <div class="screen-wrapper" style="max-width: 200px;">
-                    <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/iphone-step-3.jpg&fileId=107880&x=1920&y=1080&a=true&etag=97907b6def58e565992601df8a18f20e" alt="Refresh">
-                </div>
-                <p><strong>Приложение вылетает?</strong><br>Проверьте обновления в AppStore/PlayMarket.</p>
+                <p>Скачайте <strong>Happ-Desktop</strong> с GitHub.</p>
+                <a href="https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe" class="btn btn-outline">
+                    Скачать .exe
+                </a>
             </div>
 
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-num">2</div>
+                    <h2>Настройка</h2>
+                </div>
+                 <p>1. Скопируйте ваш ключ доступа.</p>
+                <p>2. Запустите программу, она должна подхватить ключ сама. Если нет — найдите кнопку Import.</p>
+                <p>3. Нажмите <strong>Connect</strong>.</p>
+                <div class="note">Если интернет пропал, проверьте режим "System Proxy" в настройках трея.</div>
+            </div>
         </div>
 
         <footer>
-            <p>NUNK SPACE &copy; 2025</p>
+            <p>&copy; 2025 Secure Access</p>
         </footer>
     </div>
 
     <script>
-        // Simple Reveal Animation on Scroll
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
+        // --- 1. Tab Switching Logic ---
+        function switchTab(tabId) {
+            // Remove active class from all contents and buttons
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
 
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
-            }
+            // Add active class to selected
+            document.getElementById(tabId).classList.add('active');
+            
+            // Highlight the button (find button that calls this function)
+            const buttons = document.querySelectorAll('.tab-btn');
+            if(tabId === 'ios') buttons[0].classList.add('active');
+            if(tabId === 'android') buttons[1].classList.add('active');
+            if(tabId === 'windows') buttons[2].classList.add('active');
         }
 
-        window.addEventListener("scroll", reveal);
-        // Trigger once on load
-        reveal();
+        // --- 2. Deep Link Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Helper to get URL params
+            const urlParams = new URLSearchParams(window.location.search);
+            const subLink = urlParams.get('sub');
+
+            if (subLink) {
+                // Determine the deep link scheme
+                // The user requested: happy://add/{url}
+                const deepLinkUrl = `happ://add/${subLink}`;
+
+                // Elements for iOS
+                const btnIOS = document.getElementById('deepLinkBtnIOS');
+                const textIOS = document.getElementById('manualTextIOS');
+                
+                // Elements for Android
+                const btnAndroid = document.getElementById('deepLinkBtnAndroid');
+                const textAndroid = document.getElementById('manualTextAndroid');
+
+                // Activate buttons
+                if (btnIOS) {
+                    btnIOS.style.display = 'flex';
+                    btnIOS.href = deepLinkUrl;
+                    if(textIOS) textIOS.innerHTML = "Или скопируйте ключ вручную, если кнопка не сработала.";
+                }
+
+                if (btnAndroid) {
+                    btnAndroid.style.display = 'flex';
+                    btnAndroid.href = deepLinkUrl;
+                    if(textAndroid) textAndroid.innerHTML = "Или добавьте вручную через буфер обмена.";
+                }
+
+                console.log("Deep link activated:", deepLinkUrl);
+            }
+        });
     </script>
 </body>
 </html>
