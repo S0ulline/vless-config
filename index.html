@@ -1,962 +1,428 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-  <title>Настройка VLESS (Happ)</title>
-  <style type="text/css">pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}.hljs{color:#abb2bf;background:#282c34}.hljs-comment,.hljs-quote{color:#5c6370;font-style:italic}.hljs-doctag,.hljs-formula,.hljs-keyword{color:#c678dd}.hljs-deletion,.hljs-name,.hljs-section,.hljs-selector-tag,.hljs-subst{color:#e06c75}.hljs-literal{color:#56b6c2}.hljs-addition,.hljs-attribute,.hljs-meta .hljs-string,.hljs-regexp,.hljs-string{color:#98c379}.hljs-attr,.hljs-number,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-pseudo,.hljs-template-variable,.hljs-type,.hljs-variable{color:#d19a66}.hljs-bullet,.hljs-link,.hljs-meta,.hljs-selector-id,.hljs-symbol,.hljs-title{color:#61aeee}.hljs-built_in,.hljs-class .hljs-title,.hljs-title.class_{color:#e6c07b}.hljs-emphasis{font-style:italic}.hljs-strong{font-weight:700}.hljs-link{text-decoration:underline}
-body {
-  font-family: 'Inter', sans-serif;
-  color: #f9fafb;
-  background-color: #1f2937;
-}
-
-.preview-content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-@media (min-width: 1024px) {
-  .preview-content {
-    width: 66.666667%;
-  }
-}
-/*! tailwindcss v2.2.7 | MIT License | https://tailwindcss.com *//*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
-
-/*
-Document
-========
-*/
-
-/**
-Use a better box model (opinionated).
-*/
-
-*,
-::before,
-::after {
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
-}
-
-/**
-Use a more readable tab size (opinionated).
-*/
-
-html {
-	-moz-tab-size: 4;
-	-o-tab-size: 4;
-	   tab-size: 4;
-}
-
-/**
-1. Correct the line height in all browsers.
-2. Prevent adjustments of font size after orientation changes in iOS.
-*/
-
-html {
-	line-height: 1.15; /* 1 */
-	-webkit-text-size-adjust: 100%; /* 2 */
-}
-
-/*
-Sections
-========
-*/
-
-/**
-Remove the margin in all browsers.
-*/
-
-body {
-	margin: 0;
-}
-
-/**
-Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
-*/
-
-body {
-	font-family:
-		system-ui,
-		-apple-system, /* Firefox supports this but not yet `system-ui` */
-		'Segoe UI',
-		Roboto,
-		Helvetica,
-		Arial,
-		sans-serif,
-		'Apple Color Emoji',
-		'Segoe UI Emoji';
-}
-
-/*
-Grouping content
-================
-*/
-
-/**
-1. Add the correct height in Firefox.
-2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
-*/
-
-hr {
-	height: 0; /* 1 */
-	color: inherit; /* 2 */
-}
-
-/*
-Text-level semantics
-====================
-*/
-
-/**
-Add the correct text decoration in Chrome, Edge, and Safari.
-*/
-
-abbr[title] {
-	-webkit-text-decoration: underline dotted;
-	        text-decoration: underline dotted;
-}
-
-/**
-Add the correct font weight in Edge and Safari.
-*/
-
-b,
-strong {
-	font-weight: bolder;
-}
-
-/**
-1. Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
-2. Correct the odd 'em' font sizing in all browsers.
-*/
-
-code,
-kbd,
-samp,
-pre {
-	font-family:
-		ui-monospace,
-		SFMono-Regular,
-		Consolas,
-		'Liberation Mono',
-		Menlo,
-		monospace; /* 1 */
-	font-size: 1em; /* 2 */
-}
-
-/**
-Add the correct font size in all browsers.
-*/
-
-small {
-	font-size: 80%;
-}
-
-/**
-Prevent 'sub' and 'sup' elements from affecting the line height in all browsers.
-*/
-
-sub,
-sup {
-	font-size: 75%;
-	line-height: 0;
-	position: relative;
-	vertical-align: baseline;
-}
-
-sub {
-	bottom: -0.25em;
-}
-
-sup {
-	top: -0.5em;
-}
-
-/*
-Tabular data
-============
-*/
-
-/**
-1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
-2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
-*/
-
-table {
-	text-indent: 0; /* 1 */
-	border-color: inherit; /* 2 */
-}
-
-/*
-Forms
-=====
-*/
-
-/**
-1. Change the font styles in all browsers.
-2. Remove the margin in Firefox and Safari.
-*/
-
-button,
-input,
-optgroup,
-select,
-textarea {
-	font-family: inherit; /* 1 */
-	font-size: 100%; /* 1 */
-	line-height: 1.15; /* 1 */
-	margin: 0; /* 2 */
-}
-
-/**
-Remove the inheritance of text transform in Edge and Firefox.
-1. Remove the inheritance of text transform in Firefox.
-*/
-
-button,
-select { /* 1 */
-	text-transform: none;
-}
-
-/**
-Correct the inability to style clickable types in iOS and Safari.
-*/
-
-button,
-[type='button'],
-[type='reset'],
-[type='submit'] {
-	-webkit-appearance: button;
-}
-
-/**
-Remove the inner border and padding in Firefox.
-*/
-
-::-moz-focus-inner {
-	border-style: none;
-	padding: 0;
-}
-
-/**
-Restore the focus styles unset by the previous rule.
-*/
-
-:-moz-focusring {
-	outline: 1px dotted ButtonText;
-}
-
-/**
-Remove the additional ':invalid' styles in Firefox.
-See: https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737
-*/
-
-:-moz-ui-invalid {
-	box-shadow: none;
-}
-
-/**
-Remove the padding so developers are not caught out when they zero out 'fieldset' elements in all browsers.
-*/
-
-legend {
-	padding: 0;
-}
-
-/**
-Add the correct vertical alignment in Chrome and Firefox.
-*/
-
-progress {
-	vertical-align: baseline;
-}
-
-/**
-Correct the cursor style of increment and decrement buttons in Safari.
-*/
-
-::-webkit-inner-spin-button,
-::-webkit-outer-spin-button {
-	height: auto;
-}
-
-/**
-1. Correct the odd appearance in Chrome and Safari.
-2. Correct the outline style in Safari.
-*/
-
-[type='search'] {
-	-webkit-appearance: textfield; /* 1 */
-	outline-offset: -2px; /* 2 */
-}
-
-/**
-Remove the inner padding in Chrome and Safari on macOS.
-*/
-
-::-webkit-search-decoration {
-	-webkit-appearance: none;
-}
-
-/**
-1. Correct the inability to style clickable types in iOS and Safari.
-2. Change font properties to 'inherit' in Safari.
-*/
-
-::-webkit-file-upload-button {
-	-webkit-appearance: button; /* 1 */
-	font: inherit; /* 2 */
-}
-
-/*
-Interactive
-===========
-*/
-
-/*
-Add the correct display in Chrome and Safari.
-*/
-
-summary {
-	display: list-item;
-}/**
- * Manually forked from SUIT CSS Base: https://github.com/suitcss/base
- * A thin layer on top of normalize.css that provides a starting point more
- * suitable for web applications.
- */
-
-/**
- * Removes the default spacing and border for appropriate elements.
- */
-
-blockquote,
-dl,
-dd,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-hr,
-figure,
-p,
-pre {
-  margin: 0;
-}
-
-button {
-  background-color: transparent;
-  background-image: none;
-}
-
-fieldset {
-  margin: 0;
-  padding: 0;
-}
-
-ol,
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-/**
- * Tailwind custom reset styles
- */
-
-/**
- * 1. Use the user's configured `sans` font-family (with Tailwind's default
- *    sans-serif font stack as a fallback) as a sane default.
- * 2. Use Tailwind's default "normal" line-height so the user isn't forced
- *    to override it to ensure consistency even when using the default theme.
- */
-
-html {
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 1 */
-  line-height: 1.5; /* 2 */
-}
-
-
-/**
- * Inherit font-family and line-height from `html` so users can set them as
- * a class directly on the `html` element.
- */
-
-body {
-  font-family: inherit;
-  line-height: inherit;
-}
-
-/**
- * 1. Prevent padding and border from affecting element width.
- *
- *    We used to set this in the html element and inherit from
- *    the parent element for everything else. This caused issues
- *    in shadow-dom-enhanced elements like <details> where the content
- *    is wrapped by a div with box-sizing set to `content-box`.
- *
- *    https://github.com/mozdevs/cssremedy/issues/4
- *
- *
- * 2. Allow adding a border to an element by just adding a border-width.
- *
- *    By default, the way the browser specifies that an element should have no
- *    border is by setting it's border-style to `none` in the user-agent
- *    stylesheet.
- *
- *    In order to easily add borders to elements by just setting the `border-width`
- *    property, we change the default border-style for all elements to `solid`, and
- *    use border-width to hide them instead. This way our `border` utilities only
- *    need to set the `border-width` property instead of the entire `border`
- *    shorthand, making our border utilities much more straightforward to compose.
- *
- *    https://github.com/tailwindcss/tailwindcss/pull/116
- */
-
-*,
-::before,
-::after {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box; /* 1 */
-  border-width: 0; /* 2 */
-  border-style: solid; /* 2 */
-  border-color: currentColor; /* 2 */
-}
-
-/*
- * Ensure horizontal rules are visible by default
- */
-
-hr {
-  border-top-width: 1px;
-}
-
-/**
- * Undo the `border-style: none` reset that Normalize applies to images so that
- * our `border-{width}` utilities have the expected effect.
- *
- * The Normalize reset is unnecessary for us since we default the border-width
- * to 0 on all elements.
- *
- * https://github.com/tailwindcss/tailwindcss/issues/362
- */
-
-img {
-  border-style: solid;
-}
-
-textarea {
-  resize: vertical;
-}
-
-input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
-  opacity: 1;
-  color: #9ca3af;
-}
-
-input::-moz-placeholder, textarea::-moz-placeholder {
-  opacity: 1;
-  color: #9ca3af;
-}
-
-input:-ms-input-placeholder, textarea:-ms-input-placeholder {
-  opacity: 1;
-  color: #9ca3af;
-}
-
-input::-ms-input-placeholder, textarea::-ms-input-placeholder {
-  opacity: 1;
-  color: #9ca3af;
-}
-
-input::placeholder,
-textarea::placeholder {
-  opacity: 1;
-  color: #9ca3af;
-}
-
-button,
-[role="button"] {
-  cursor: pointer;
-}
-
-table {
-  border-collapse: collapse;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-size: inherit;
-  font-weight: inherit;
-}
-
-/**
- * Reset links to optimize for opt-in styling instead of
- * opt-out.
- */
-
-a {
-  color: inherit;
-  text-decoration: inherit;
-}
-
-/**
- * Reset form element properties that are easy to forget to
- * style explicitly so you don't inadvertently introduce
- * styles that deviate from your design system. These styles
- * supplement a partial reset that is already applied by
- * normalize.css.
- */
-
-button,
-input,
-optgroup,
-select,
-textarea {
-  padding: 0;
-  line-height: inherit;
-  color: inherit;
-}
-
-/**
- * Use the configured 'mono' font family for elements that
- * are expected to be rendered with a monospace font, falling
- * back to the system monospace stack if there is no configured
- * 'mono' font family.
- */
-
-pre,
-code,
-kbd,
-samp {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-}
-
-/**
- * 1. Make replaced elements `display: block` by default as that's
- *    the behavior you want almost all of the time. Inspired by
- *    CSS Remedy, with `svg` added as well.
- *
- *    https://github.com/mozdevs/cssremedy/issues/14
- * 
- * 2. Add `vertical-align: middle` to align replaced elements more
- *    sensibly by default when overriding `display` by adding a
- *    utility like `inline`.
- *
- *    This can trigger a poorly considered linting error in some
- *    tools but is included by design.
- * 
- *    https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210
- */
-
-img,
-svg,
-video,
-canvas,
-audio,
-iframe,
-embed,
-object {
-  display: block; /* 1 */
-  vertical-align: middle; /* 2 */
-}
-
-/**
- * Constrain images and videos to the parent width and preserve
- * their intrinsic aspect ratio.
- *
- * https://github.com/mozdevs/cssremedy/issues/14
- */
-
-img,
-video {
-  max-width: 100%;
-  height: auto;
-}
-
-/**
- * Ensure the default browser behavior of the `hidden` attribute.
- */
-
-[hidden] {
-  display: none;
-}
-
-*, ::before, ::after {
-	--tw-border-opacity: 1;
-	border-color: rgba(229, 231, 235, var(--tw-border-opacity));
-	--tw-ring-inset: var(--tw-empty,/*!*/ /*!*/);
-	--tw-ring-offset-width: 0px;
-	--tw-ring-offset-color: #fff;
-	--tw-ring-color: rgba(59, 130, 246, 0.5);
-	--tw-ring-offset-shadow: 0 0 #0000;
-	--tw-ring-shadow: 0 0 #0000;
-	--tw-shadow: 0 0 #0000;
-}
-
-.preview-content h1, .preview-content h2, .preview-content h3, .preview-content h4, .preview-content h5, .preview-content h6 {
-	margin-top: 1.25rem;
-	margin-bottom: 1.25rem;
-}
-
-.preview-content h1, .preview-content h2, .preview-content h3, .preview-content h4, .preview-content h5, .preview-content h6 {
-	font-weight: 700;
-}
-
-.preview-content blockquote, .preview-content dl, .preview-content dd, .preview-content hr, .preview-content figure, .preview-content p, .preview-content pre {
-	margin-top: 1.25rem;
-	margin-bottom: 1.25rem;
-}
-
-.preview-content h1 {
-	font-size: 1.875rem;
-	line-height: 2.25rem;
-}
-
-.preview-content h2 {
-	font-size: 1.5rem;
-	line-height: 2rem;
-}
-
-.preview-content h3 {
-	font-size: 1.25rem;
-	line-height: 1.75rem;
-}
-
-.preview-content h4 {
-	font-size: 1.125rem;
-	line-height: 1.75rem;
-}
-
-.preview-content h5 {
-	font-size: 1rem;
-	line-height: 1.5rem;
-}
-
-.preview-content h6 {
-	font-size: 0.875rem;
-	line-height: 1.25rem;
-}
-
-.preview-content a {
-	--tw-text-opacity: 1;
-	color: rgba(59, 130, 246, var(--tw-text-opacity));
-}
-
-.preview-content a:hover {
-      text-decoration: underline;
-    }
-
-.preview-content pre, .preview-content code{
-    font-family: 'Fira Code', monospace;
-    -moz-tab-size: 2;
-      -o-tab-size: 2;
-         tab-size: 2;
-  }
-
-.preview-content pre, .preview-content code {
-	border-radius: 0.5rem;
-}
-
-.preview-content pre, .preview-content code {
-	--tw-bg-opacity: 1;
-	background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
-}
-
-.preview-content pre, .preview-content code {
-	--tw-bg-opacity: 0.1;
-}
-
-.preview-content img{
-    max-width: 100%;
-  }
-
-.preview-content pre {
-	padding-top: 1rem;
-	padding-bottom: 1rem;
-}
-
-.preview-content pre {
-	padding-left: 1.5rem;
-	padding-right: 1.5rem;
-}
-
-.preview-content pre code{
-      padding: 0;
-      background-color: transparent;
-    }
-
-.preview-content code {
-	padding-left: 0.75rem;
-	padding-right: 0.75rem;
-}
-
-.preview-content code {
-	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
-}
-
-.preview-content blockquote {
-	border-left-width: 4px;
-}
-
-.preview-content blockquote {
-	--tw-border-opacity: 1;
-	border-color: rgba(59, 130, 246, var(--tw-border-opacity));
-}
-
-.preview-content blockquote {
-	padding-left: 1.25rem;
-	padding-right: 1.25rem;
-}
-
-.preview-content table{
-    table-layout: auto;
-  }
-
-.preview-content table *{
-      border-color: rgba(255, 255, 255, 0.24);
-    }
-
-.preview-content table th, .preview-content table td {
-	border-width: 1px;
-}
-
-.preview-content table th, .preview-content table td {
-	padding-left: 0.75rem;
-	padding-right: 0.75rem;
-}
-
-.preview-content table th, .preview-content table td {
-	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
-}
-
-.preview-content table tr:nth-child(odd) {
-	--tw-bg-opacity: 1;
-	background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
-}
-
-.preview-content table tr:nth-child(odd) {
-	--tw-bg-opacity: 0.1;
-}
-
-.preview-content ol{
-    padding: auto;
-    list-style: decimal;
-  }
-
-.preview-content li{
-    list-style-position: inside;
-  }
-
-.preview-content li input[type="checkbox"] {
-      margin: 0 0.5rem 0 0 !important;
-    }
-
-.preview-content li p{
-      display: inline-block;
-    }
-
-.preview-content ul ul {
-	padding-left: 1.5rem;
-}
-
-.preview-content ul{
-    list-style: disc;
-  }
-
-.hover\:bg-blue-600:hover {
-	--tw-bg-opacity: 1;
-	background-color: rgba(37, 99, 235, var(--tw-bg-opacity));
-}
-
-.hover\:bg-red-600:hover {
-	--tw-bg-opacity: 1;
-	background-color: rgba(220, 38, 38, var(--tw-bg-opacity));
-}
-
-.hover\:bg-gray-100:hover {
-	--tw-bg-opacity: 1;
-	background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
-}
-
-.hover\:bg-opacity-10:hover {
-	--tw-bg-opacity: 0.1;
-}
-
-.hover\:bg-opacity-5:hover {
-	--tw-bg-opacity: 0.05;
-}
-
-.focus\:bg-blue-600:focus {
-	--tw-bg-opacity: 1;
-	background-color: rgba(37, 99, 235, var(--tw-bg-opacity));
-}
-
-.focus\:bg-red-600:focus {
-	--tw-bg-opacity: 1;
-	background-color: rgba(220, 38, 38, var(--tw-bg-opacity));
-}
-
-.focus\:bg-gray-100:focus {
-	--tw-bg-opacity: 1;
-	background-color: rgba(243, 244, 246, var(--tw-bg-opacity));
-}
-
-.focus\:bg-opacity-10:focus {
-	--tw-bg-opacity: 0.1;
-}
-
-.focus\:outline-none:focus {
-	outline: 2px solid transparent;
-	outline-offset: 2px;
-}
-
-.focus\:ring:focus {
-	--tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-	--tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(3px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-	-webkit-box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-	        box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-}
-
-.focus\:ring-opacity-50:focus {
-	--tw-ring-opacity: 0.5;
-}
-
-@media (min-width: 768px) {
-
-	.md\:block {
-		display: block;
-	}
-
-	.md\:hidden {
-		display: none;
-	}
-
-	.md\:w-72 {
-		width: 18rem;
-	}
-
-	.md\:items-center {
-		-webkit-box-align: center;
-		    -ms-flex-align: center;
-		        align-items: center;
-	}
-}
-
-@media (min-width: 1024px) {
-
-	.lg\:mt-0 {
-		margin-top: 0px;
-	}
-
-	.lg\:block {
-		display: block;
-	}
-
-	.lg\:hidden {
-		display: none;
-	}
-
-	.lg\:w-6\/12 {
-		width: 50%;
-	}
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настройка VPN доступа</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.15);
+            --accent-primary: #6366f1; /* Indigo */
+            --accent-secondary: #ec4899; /* Pink */
+            --accent-glow: #8b5cf6; /* Violet */
+            --text-main: #ffffff;
+            --text-muted: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* --- Animated Background --- */
+        .background-fx {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.4;
+            animation: float 20s infinite alternate ease-in-out;
+        }
+        .orb-1 { width: 400px; height: 400px; background: var(--accent-primary); top: -100px; left: -100px; }
+        .orb-2 { width: 500px; height: 500px; background: var(--accent-secondary); bottom: -100px; right: -100px; animation-delay: -5s; }
+        .orb-3 { width: 300px; height: 300px; background: var(--accent-glow); top: 40%; left: 30%; opacity: 0.2; animation-duration: 30s; }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 50px) scale(1.1); }
+        }
+
+        /* --- Layout --- */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 20px 100px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- Header --- */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* --- Alert Box (Glass) --- */
+        .alert-box {
+            background: rgba(99, 102, 241, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 60px;
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .alert-box::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--accent-primary);
+        }
+
+        /* --- Timeline Structure --- */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        /* Line */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 20px; bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent-primary), var(--accent-secondary), transparent);
+            opacity: 0.5;
+        }
+
+        /* --- Cards (Glassmorphism) --- */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-top: 1px solid var(--glass-highlight);
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 50px;
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px -10px rgba(0,0,0,0.6);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        /* Timeline Dot */
+        .card::before {
+            content: '';
+            position: absolute;
+            left: -46px; /* Adjust based on padding */
+            top: 35px;
+            width: 14px;
+            height: 14px;
+            background: var(--bg-color);
+            border: 2px solid var(--accent-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--accent-primary);
+            z-index: 2;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .step-num {
+            font-size: 3rem;
+            font-weight: 800;
+            color: rgba(255,255,255,0.05);
+            line-height: 1;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            pointer-events: none;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+        p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        /* --- Download Grid --- */
+        .download-grid {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            justify-content: center; /* Center the download buttons */
+        }
+        
+        .dl-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            min-width: 120px;
+            max-width: 180px; /* Added max-width for better center look */
+        }
+        .dl-btn:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--accent-primary);
+        }
+        .dl-btn img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- Screenshots --- */
+        .screen-wrapper {
+            margin: 20px auto; /* Auto margins center block elements */
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            max-width: 300px;
+        }
+        .screen-wrapper img {
+            width: 100%;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .screen-wrapper:hover img {
+            transform: scale(1.03);
+        }
+
+        /* --- Elements --- */
+        code {
+            background: rgba(0,0,0,0.3);
+            color: var(--accent-secondary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        .note {
+            background: rgba(236, 72, 153, 0.1);
+            border-left: 3px solid var(--accent-secondary);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #ffcae5;
+        }
+
+        a { color: var(--accent-primary); text-decoration: none; transition: 0.2s; }
+        a:hover { color: #fff; text-shadow: 0 0 10px var(--accent-primary); }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 40px;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* --- Mobile --- */
+        @media (max-width: 600px) {
+            .container { padding: 40px 15px; }
+            h1 { font-size: 2.2rem; }
+            .timeline { padding-left: 20px; }
+            .timeline::before { left: 0; }
+            .card::before { left: -28px; }
+            .card { padding: 20px; }
+            .step-num { font-size: 2rem; }
+        }
+
+        /* Animation class for JS */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
 <body>
-  <div class="preview-content"><h1 id="настройка-vpn-vless-на-устройствах">Настройка VPN (VLESS) на устройствах</h1>
-<hr />
-<h2 id="установка-приложения">Установка приложения</h2>
-<p>Для корректной работы VPN с форматом подписки и поддержкой всех доступных типов транспорта нам потребуется установить приложение Happ-Proxy для Android, IOS и ПК</p>
-<div align="center" style="display: flex; justify-content: center; align-items: center; gap: 10px">
-  <a href="https://play.google.com/store/apps/details?id=com.happproxy">
-    <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/download-for-android.png&fileId=107808&x=1920&y=1080&a=true&etag=876c444f0235f170ec09cc5dead213ab" width="150px" alt="DFW Logo">
-  </a>
-  <a href="https://apps.apple.com/app/id6746188973">
-    <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/download-for-iphone.png&fileId=107800&x=1920&y=1080&a=true&etag=8eea4a8db016308b5ed9d73ac17126fc" width="150px" alt="DFA Logo">
-  </a>
-  <a href="https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe">
-    <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/download-for-windows.png&fileId=107816&x=1920&y=1080&a=true&etag=7b964b2638a908130ae26b808c7a5218" width="150px" alt="DFA Logo">
-  </a>
-</div>
-<p>Для использования VPN на роутере, необходим роутер с установленным OpenWRT и v2rayA. Например <a href="https://wwwdns-shop.ru/product/2b8d5da81f55ed20/wi-fi-router-xiaomi-router-ax3200-rb01/">Xiaomi Router AX3200 RB01 (AX6S)</a></p>
-<hr />
-<h2 id="настройка-приложения">Настройка приложения</h2>
-<p>При первом запуске, Happ попросит у нас разрешения на уведомления, разрешаем.<br />
-Добавляем конфигурацию в Happ в зависимости от того как вы получили ссылку на подписку.<br />
-Если вы получили ссылку, ее нужно предварительно скопировать и выбрать "Из буфера".</p>
-<div align="center" style="display: flex; justify-content: center; align-items: center; gap: 10px">
-<img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/iphone-step-1.jpg&fileId=107838&x=1920&y=1080&a=true&etag=674b82d0eb1306d9cbd19d0da8a6d1b0" width="250px" alt="DFA Logo">
-  </div>
-<p>После этого мы увидим несколько доступных конфигураций с разными настройками.</p>
-<div align="center" style="display: flex; justify-content: center; align-items: center; gap: 10px">
-<img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/iphone-step-2.jpg&fileId=107871&x=1920&y=1080&a=true&etag=42eb8178a835dbbb8dc62007f2681610" width="250px" alt="DFA Logo">
-  </div>
-<div align="center">
-  <i>Предпочтительно используем reality-first</i><br>
-<i>Если работает не стабильно или не работает совсем, то используем xhttp-firstX</i>
-</div>
-<hr />
-<h2 id="дополнительная-настройка">Дополнительная настройка</h2>
-<ol>
-<li>Переходим в настройки приложения (значок шестеренки в верхнем левом углу).</li>
-<li>Ищем раздел "Расширенные настройки"</li>
-<li>Далее переходим в пункт "Подписки"</li>
-<li>Включаем Автоматическое обновление подписок (Авто обновления)</li>
-</ol>
-<hr />
-<h2 id="запуск-подключения">Запуск подключения</h2>
-<ol>
-<li>Нажмите большую кнопку <strong>Подключить/Start</strong> (обычно круглая кнопка по центру или переключатель).</li>
-<li><strong>Важно:</strong> При первом запуске устройство запросит разрешение на добавление конфигурации VPN.<ul>
-<li><strong>Android:</strong> Нажмите «ОК» или «Разрешить» во всплывающем окне.</li>
-<li><strong>iOS:</strong> Нажмите «Allow» (Разрешить) и введите код-пароль от телефона.</li></ul></li>
-<li>Если кнопка изменила цвет (обычно на зеленый или синий) и появился таймер/надпись «Connected», значит VPN включен.</li>
-</ol>
-<hr />
-<h2 id="проверка-работы">Проверка работы</h2>
-<p>Чтобы убедиться, что трафик идет через VPN:</p>
-<ol>
-<li>Откройте браузер и зайдите на сайт <a href="https://2ip.ru">2ip.ru</a> или <a href="https://whoer.net">whoer.net</a>.</li>
-<li>Ваше местоположение и IP-адрес должны измениться на страну сервера (например, Нидерланды, Германия или США).</li>
-<li>Попробуйте открыть заблокированный сервис (например, Instagram, YouTube или LinkedIn).</li>
-</ol>
-<hr />
-<h2 id="обновление-подписки">Обновление подписки</h2>
-<p>Если серверы перестали работать или скорость сильно упала, попробуйте обновить подписку:</p>
-<ol>
-<li>Откройте приложение Happ.</li>
-<li>Нажмите кнопку обновления (обычно значок 🔄 или «Update Subscription»).</li>
-<li>Список серверов актуализируется.<br />
-<br></li>
-</ol>
-<div align="center" style="display: flex; justify-content: center; align-items: center; gap: 10px">
-<img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/iphone-step-3.jpg&fileId=107880&x=1920&y=1080&a=true&etag=97907b6def58e565992601df8a18f20e" width="250px" alt="DFA Logo">
-  </div>
-<hr />
-<h2 id="возможные-проблемы">Возможные проблемы</h2>
-<ul>
-<li><strong>Высокий пинг или нет соединения:</strong> Попробуйте переключиться между конфигами <code>reality</code> и <code>xhttp</code>.</li>
-<li><strong>Приложение вылетает:</strong> Убедитесь, что у вас установлена последняя версия Happ-Proxy.</li>
-<li><strong>Не работает на роутере:</strong> Настройка OpenWRT + v2rayA требует отдельной инструкции. Обратитесь к администратору за подробным мануалом по настройке интерфейса LuCI.</li>
-</ul>
-<p><strong>Приятного использования!</strong></p></div>
+
+    <div class="background-fx">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Setup Guide</h1>
+            <p class="subtitle">Инструкция по подключению VLESS</p>
+        </header>
+
+        <div class="alert-box">
+            <h3 style="color: #fff; margin-bottom: 5px;">⚠️ Подготовка</h3>
+            <p style="margin: 0; color: #ddd;">Перед началом убедитесь, что вы скопировали <strong>ссылку на подписку</strong>, которую я отправил вам в личном сообщении.</p>
+        </div>
+
+        <div class="timeline">
+            
+            <div class="card reveal">
+                <span class="step-num">01</span>
+                <div class="step-header">
+                    <h2>Установка Happ-Proxy</h2>
+                </div>
+                <p>Скачайте официальное приложение для вашей платформы:</p>
+                
+                <div class="download-grid">
+                    <a href="https://play.google.com/store/apps/details?id=com.happproxy" target="_blank" class="dl-btn">
+                        <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/download-for-android-transparent.png&fileId=107906&x=1920&y=1080&a=true&etag=07d0c4d7c8e45ca33c8a4e8a940feba4" alt="Android">
+                    </a>
+                    <a href="https://apps.apple.com/app/id6746188973" target="_blank" class="dl-btn">
+                        <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/download-for-iphone-transparent.png&fileId=107898&x=1920&y=1080&a=true&etag=e464537f2ebe5a7a7d1aebd46e718994" alt="iOS">
+                    </a>
+                    <a href="https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe" target="_blank" class="dl-btn">
+                        <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/download-for-windows-transparent.png&fileId=107915&x=1920&y=1080&a=true&etag=e6d027c8a7cbd42edbfb567ad96a7ff6" alt="Windows">
+                    </a>
+                </div>
+                <div style="margin-top: 15px; font-size: 0.85rem; color: var(--text-muted); opacity: 0.7; text-align: center;">
+                    Для роутеров (OpenWRT) требуется отдельная настройка.
+                </div>
+            </div>
+
+            <div class="card reveal">
+                <span class="step-num">02</span>
+                <div class="step-header">
+                    <h2>Импорт настроек</h2>
+                </div>
+                <p>1. Откройте приложение Happ-Proxy.</p>
+                <p>2. Приложение автоматически обнаружит ссылку в буфере обмена (из ЛС). Нажмите <strong>"Добавить"</strong>.</p>
+                <div class="screen-wrapper">
+                    <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/iphone-step-1.jpg&fileId=107838&x=1920&y=1080&a=true&etag=674b82d0eb1306d9cbd19d0da8a6d1b0" alt="Import Step">
+                </div>
+            </div>
+
+            <div class="card reveal">
+                <span class="step-num">03</span>
+                <div class="step-header">
+                    <h2>Выбор конфигурации</h2>
+                </div>
+                <p>Выберите сервер из списка. Мы рекомендуем начинать с <code>reality-first</code>.</p>
+                <div class="note">
+                    Если соединение нестабильно, попробуйте переключиться на <strong>xhttp-first</strong>.
+                </div>
+                <div class="screen-wrapper">
+                    <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/iphone-step-2.jpg&fileId=107871&x=1920&y=1080&a=true&etag=42eb8178a835dbbb8dc62007f2681610" alt="Select Server">
+                </div>
+            </div>
+
+            <div class="card reveal">
+                <span class="step-num">04</span>
+                <div class="step-header">
+                    <h2>Автообновление</h2>
+                </div>
+                <p>Критически важный шаг для длительной работы:</p>
+                <ul style="padding-left: 20px; color: var(--text-muted); margin-bottom: 15px;">
+                    <li>Зайдите в настройки (⚙️)</li>
+                    <li>Раздел <strong>Расширенные настройки</strong></li>
+                    <li>Пункт <strong>Подписки</strong></li>
+                    <li>Включите <strong>"Авто обновления"</strong></li>
+                </ul>
+            </div>
+
+            <div class="card reveal">
+                <span class="step-num">05</span>
+                <div class="step-header">
+                    <h2>Подключение</h2>
+                </div>
+                <p>Нажмите кнопку <strong>Start / Подключить</strong>.</p>
+                <p>При первом запуске разрешите создание VPN-профиля (нажмите Allow/Разрешить и введите код-пароль).</p>
+                
+                <hr style="border: 0; border-top: 1px solid var(--glass-border); margin: 20px 0;">
+                
+                <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 10px;">Проверка работы</h3>
+                <p>Зайдите на <a href="https://2ip.ru" target="_blank">2ip.ru</a>. Ваш IP и страна должны измениться.</p>
+            </div>
+
+            <div class="card reveal" style="border-color: rgba(236, 72, 153, 0.3);">
+                <div class="step-header">
+                    <h2 style="color: var(--accent-secondary);">Возможные проблемы</h2>
+                </div>
+                <p><strong>Список пустой или не работает?</strong><br>
+                Нажмите кнопку 🔄 (Обновить) на главном экране.</p>
+                 <div class="screen-wrapper" style="max-width: 200px;">
+                    <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/iphone-step-3.jpg&fileId=107880&x=1920&y=1080&a=true&etag=97907b6def58e565992601df8a18f20e" alt="Refresh">
+                </div>
+                <p><strong>Приложение вылетает?</strong><br>Проверьте обновления в AppStore/PlayMarket.</p>
+            </div>
+
+        </div>
+
+        <footer>
+            <p>NUNK SPACE &copy; 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple Reveal Animation on Scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+    </script>
 </body>
 </html>
-  
