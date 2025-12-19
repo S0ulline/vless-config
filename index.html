@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Настройка VPN доступа</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/icons/favicon-32x32.png&fileId=108158&x=1920&y=1080&a=true&etag=24c69aa38e9e6e0136f641a17c3ba539">
+    
+    <meta property="og:title" content="VLESS CONFIG" />
+    <meta property="og:description" content="Инструкция по подключению VLESS" />
+    <meta property="og:image" content="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/sit-preview.jpg&fileId=108175&x=1920&y=1080&a=true&etag=d24be0c7c3e8c7b6efdeb63b47549f33" />
+    <meta property="og:type" content="website" />
+
     <style>
         :root {
     --bg-color: #1a1617; /* Dark warm charcoal */
@@ -160,7 +167,7 @@
         /* Стили для скролл-анимации */
         .reveal {
             opacity: 0;
-            transform: translateY(50px) scale(0.95);
+            transform: translateY(20px) scale(0.95);
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: transform, opacity;
         }
@@ -175,9 +182,9 @@
         .timeline::before {
             content: '';
             position: absolute;
-            left: 0; top: 20px; bottom: 0;
+            left: 0; top: 40px; bottom: 0;
             width: 2px;
-            background: linear-gradient(to bottom, var(--accent-primary), var(--accent-secondary), transparent);
+            background: linear-gradient(to bottom, var(--accent-primary), var(--accent-secondary) 95%, transparent);
             opacity: 0.5;
         }
 
@@ -189,7 +196,7 @@
             border-top: 1px solid var(--glass-highlight);
             border-radius: 24px;
             padding: 30px;
-            margin-bottom: 50px;
+            margin-bottom: 20px;
             box-shadow: 0 20px 40px -10px rgba(0,0,0,0.5);
             position: relative;
         }
@@ -197,8 +204,8 @@
         .card::before {
             content: '';
             position: absolute;
-            left: -46px; top: 35px;
-            width: 14px; height: 14px;
+            left: -51px; top: 35px;
+            width: 18px; height: 18px;
             background: var(--bg-color);
             border: 2px solid var(--accent-primary);
             border-radius: 50%;
@@ -225,6 +232,7 @@
             padding: 15px 20px;
             color: #fff; text-decoration: none; font-weight: 600;
             transition: 0.2s;
+            width: 100%;
         }
         .dl-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--accent-primary); box-shadow: 0 0 15px rgba(99, 102, 241, 0.3); }
         .dl-btn img { height: 30px; margin-right: 10px; }
@@ -261,11 +269,16 @@
         /* --- Screenshots --- */
         .screen-wrapper {
             margin: 20px auto; border-radius: 12px; overflow: hidden;
-            border: 1px solid var(--glass-border); max-width: 280px;
+            border: 1px solid var(--glass-border); 
         }
         .screen-wrapper img { width: 100%; display: block; }
+        .mobile-image {max-width: 280px;}
         
         .desktop-screen { max-width: 100%; }
+
+        body.has-sublink .hidden-on-sub {
+    display: none !important;
+}
 
         /* --- Mobile --- */
         @media (max-width: 600px) {
@@ -273,7 +286,7 @@
             h1 { font-size: 2.2rem; }
             .timeline { padding-left: 20px; }
             .timeline::before { left: 0; }
-            .card::before { left: -28px; }
+            .card::before { left: -31px; }
             .card { padding: 20px; }
             .os-btn { padding: 10px 16px; font-size: 0.9rem; }
         }
@@ -311,7 +324,7 @@
             <div class="card reveal">
                 <span class="step-num">01</span>
                 <div class="step-header"><h2>Установка Happ-Proxy</h2></div>
-                <p>Скачайте официальное приложение для вашей платформы:</p>
+                <p>Скачайте официальное приложение <strong>Happ-Proxy</strong> для вашей платформы:</p>
 
                 <div class="download-center" id="dl-container">
                     <a href="https://apps.apple.com/app/id6746188973" target="_blank" class="dl-btn os-specific ios-only">
@@ -339,45 +352,54 @@
                     <div id="manual-import-text">
                         <p>1. Скопируйте ссылку на подписку, полученную в личном сообщении.</p>
                         <p>2. Откройте приложение Happ-Proxy.</p>
-                        <p>3. Приложение автоматически предложит добавить настройки из буфера обмена. Нажмите <strong>"Добавить / Import"</strong>.</p>
+                        <p>3. Нажмите кнопку <strong>"Из буфера"</strong> или <strong>"QR-код"</strong> в зависимости от формата полученной ссылки.</p>
                     </div>
 
                     <a href="#" id="magic-config-btn">
                         🚀 Добавить конфигурацию
                     </a>
-                    <p id="magic-hint" style="display:none; text-align:center; font-size:0.8rem; margin-top:5px; opacity:0.7;">Нажмите на кнопку, чтобы открыть приложение с настройками</p>
+                    <p id="magic-hint" style="display:none; text-align:center; font-size:0.8rem; margin-top:10px; opacity:0.7; margin-bottom: 0px;">Нажмите на кнопку, чтобы импортировать настройки в Happ</p>
                 </div>
 
-                <div class="os-specific ios-only">
-                    <div class="screen-wrapper">
+                <div class="os-specific ios-only hidden-on-sub">
+                    <div class="screen-wrapper mobile-image">
                         <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/iphone-step-1.jpg&fileId=107838&x=1920&y=1080&a=true&etag=674b82d0eb1306d9cbd19d0da8a6d1b0" alt="iOS Import">
                     </div>
                 </div>
                 
-                <div class="os-specific android-only" style="display:none">
-                    <div class="screen-wrapper">
-                        <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/iphone-step-1.jpg&fileId=107838&x=1920&y=1080&a=true&etag=674b82d0eb1306d9cbd19d0da8a6d1b0" style="filter: grayscale(20%);" alt="Android Import">
+                <div class="os-specific android-only hidden-on-sub" style="display:none">
+                    <div class="screen-wrapper mobile-image">
+                        <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/iphone-step-1.jpg&fileId=107838&x=1920&y=1080&a=true&etag=674b82d0eb1306d9cbd19d0da8a6d1b0" alt="Android Import">
                     </div>
                 </div>
 
-                <div class="os-specific windows-only" style="display:none">
+                <div class="os-specific windows-only hidden-on-sub" style="display:none">
+                    <div class="screen-wrapper">
+                        <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/win-step-1.jpg&fileId=107997&x=1920&y=1080&a=true&etag=4c736f48c9fad3fc813c91a58b6e0a77" alt="Windows Import">
+                    </div>
                     <div class="note">
-                         На Windows после установки запустите файл, вставьте ссылку (Ctrl+V) или нажмите кнопку импорта из буфера обмена в интерфейсе программы.
+                         При первом запуске окно добавления может отличаться.
                     </div>
                 </div>
             </div>
 
             <div class="card reveal">
                 <span class="step-num">03</span>
-                <div class="step-header"><h2>Выбор конфигурации</h2></div>
-                <p>Выберите сервер из списка. Мы рекомендуем <code>reality-first</code>.</p>
+                <div class="step-header"><h2>Выбор подключения</h2></div>
+                <p>Выберите профиль подключения из списка. Мы рекомендуем элемент с префиксом <code>reality</code>.</p>
                 <div class="note">
-                    Если соединение нестабильно, попробуйте <strong>xhttp-first</strong>.
+                    Если соединение нестабильно, попробуйте профиль подключения с префиксом <strong>xhttp</strong>.
                 </div>
                 
                 <div class="os-specific ios-only android-only">
-                    <div class="screen-wrapper">
+                    <div class="screen-wrapper mobile-image">
                         <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/iphone-step-2.jpg&fileId=107871&x=1920&y=1080&a=true&etag=42eb8178a835dbbb8dc62007f2681610" alt="Select Server">
+                    </div>
+                </div>
+
+                <div class="os-specific windows-only" style="display: none;">
+                    <div class="screen-wrapper">
+                        <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/win-step-2.jpg&fileId=107995&x=1920&y=1080&a=true&etag=550aa6f03d926c63bde9b8a7e2f57a03" alt="Select Server">
                     </div>
                 </div>
             </div>
@@ -387,16 +409,13 @@
                 <div class="step-header"><h2>Автообновление</h2></div>
                 <p>Важно для стабильной работы:</p>
                 
-                <div class="os-specific ios-only android-only">
+                <div>
                     <ul style="padding-left: 20px; color: var(--text-muted); margin-bottom: 15px;">
                         <li>Зайдите в настройки (⚙️)</li>
-                        <li>Раздел <strong>Расширенные / Advanced</strong></li>
-                        <li>Включите <strong>"Обновлять при открытии"</strong> или "Update on Open"</li>
+                        <li>Раздел <strong>Расширенные настройки / Advanced settings</strong></li>
+                        <li>Пункт <strong>Обновлять подписки</strong></li>
+                        <li>Включите <strong>Автоматическое обновление</strong> и <strong>"Обновлять при открытии"</strong></li>
                     </ul>
-                </div>
-
-                <div class="os-specific windows-only" style="display:none">
-                    <p>В десктопной версии: ПКМ по иконке профиля -> Update Subscription (Обновить подписку).</p>
                 </div>
             </div>
 
@@ -410,17 +429,66 @@
                 </div>
                 
                 <div class="os-specific windows-only" style="display:none">
-                    <p>Нажмите <strong>System Proxy</strong> (Системный прокси) для включения.</p>
+                    <p>Выберите <strong>TUN</strong> (Туннелирование) и нажмите кнопку подключения.</p>
                     <p>Значок программы должен изменить цвет.</p>
                 </div>
 
-                <hr style="border: 0; border-top: 1px solid var(--glass-border); margin: 20px 0;">
-                <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 10px;">Проверка</h3>
-                <p>Зайдите на <a href="https://2ip.ru" target="_blank">2ip.ru</a>. Страна должна измениться.</p>
+                <div class="os-specific windows-only" style="display: none;">
+                    <div class="screen-wrapper">
+                        <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/win-step-3.jpg&fileId=107996&x=1920&y=1080&a=true&etag=50604224291ce439dc92dc7e21d9ec05" alt="Select Server">
+                    </div>
+                </div>
             </div>
 
+            <div class="card reveal">
+                <span class="step-num">06</span>
+                <div class="step-header"><h2>Проверка работы</h2></div>
+                <p>Чтобы убедиться, что трафик идет через VPN:</p>
+                
+                <div>
+                    <ul style="padding-left: 20px; color: var(--text-muted); margin-bottom: 15px;">
+                        <li>Откройте браузер и зайдите на сайт <a href="https://2ip.ru" target="_blank">2ip.ru</a>.</li>
+                        <li>Ваше местоположение и IP-адрес должны измениться на страну сервера (например, Нидерланды, Германия или США).</strong></li>
+                        <li>Попробуйте открыть заблокированный сервис (например, <a href="https://instagram.com/" target="_blank">Instagram</a> или <a href="https://youtube.com/" target="_blank">YouTube</a>).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card reveal">
+                <span class="step-num">07</span>
+                <div class="step-header"><h2>Обновление подписки</h2></div>
+                <p>Если серверы перестали работать или скорость сильно упала, попробуйте обновить подписку:</p>
+                
+                <div>
+                    <ul style="padding-left: 20px; color: var(--text-muted); margin-bottom: 15px;">
+                        <li>Откройте приложение <strong>Happ</strong></li>
+                        <li>Нажмите кнопку обновления (обычно значок 🔄 или «Update Subscription»).</li>
+                        <li>Список серверов актуализируется.</li>
+                    </ul>
+                </div>
+
+                <div class="os-specific ios-only android-only">
+                    <div class="screen-wrapper mobile-image">
+                        <img src="https://next.warpoint.ru/index.php/apps/files_sharing/publicpreview/reZTXc8gtqpxLHt?file=/iphone-step-3.jpg&fileId=107880&x=1920&y=1080&a=true&etag=97907b6def58e565992601df8a18f20e" alt="iOS Import">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card reveal">
+                <span class="step-num">!</span>
+                <div class="step-header"><h2>Возможные проблемы</h2></div>
+                
+                <div>
+                    <ul style="padding-left: 20px; color: var(--text-muted); margin-bottom: 15px;">
+                        <li><strong>Высокий пинг или нет соединения:</strong> Попробуйте переключиться между профилями <code>reality</code> и <code>xhttp</code></li>
+                        <li><strong>Приложение вылетает:</strong> Убедитесь, что у вас установлена последняя версия Happ-Proxy.</li>
+                        </ul>
+                </div>
+            </div>
+
+
         </div> <footer>
-            <p>NUNK SPACE &copy; 2025</p>
+            <p style="text-align: center;">NUNK SPACE &copy; 2025</p>
         </footer>
     </div>
 
@@ -476,6 +544,7 @@
             const subLink = urlParams.get('sub');
 
             if (subLink) {
+            document.body.classList.add('has-sublink');
                 const magicBtn = document.getElementById('magic-config-btn');
                 const manualText = document.getElementById('manual-import-text');
                 const hint = document.getElementById('magic-hint');
@@ -495,7 +564,7 @@
             
             for (var i = 0; i < reveals.length; i++) {
                 var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 50;
+                var elementVisible = 30;
 
                 if (elementTop < windowHeight - elementVisible) {
                     reveals[i].classList.add("active");
